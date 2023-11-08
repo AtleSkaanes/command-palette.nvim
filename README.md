@@ -4,13 +4,12 @@ This is a a plugin for neovim inspired by VS code's command palette.
 
 ## Installation
 
-<details><summary>Packer</summary>
+### Packer
 ```lua
 use 'AtleSkaanes/command-palette.nvim'
 ```
-</details>
 
-<details><summary>Lazy</summary>
+### Lazy
 ```lua
 return {
     'AtleSkaanes/command-palette.nvim',
