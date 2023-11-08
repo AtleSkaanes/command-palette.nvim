@@ -2,6 +2,9 @@ CmdPalette = {}
 
 CmdPalette.has_categories = true
 
+CmdPalette.cmdNames = {}
+CmdPalette.cmdFuncs = {}
+
 -- default args
 CmdPalette.args = {
     commands = {},
@@ -12,22 +15,19 @@ function CmdPalette.setup(opts)
     for k, v in pairs(opts) do
         CmdPalette.args[k] = v
     end
-
-    if #CmdPalette.commands <= 1 and CmdPalette.args.commands[1].name == nil then
+    if #CmdPalette.args.commands <= 1 and CmdPalette.args.commands[1].name == nil then
         CmdPalette.has_categories = false
     end
-
-    CmdPalette.commands = CmdPalette.args.commands
-
-    print(#CmdPalette.commands)
+    local i = 1
+    for _, v in pairs(CmdPalette.args.commands) do
+        CmdPalette.cmdNames[i] = v.name
+        CmdPalette.cmdFuncs[i] = v.cmd
+        i = i + 1
+    end
 end
 
 -- Function 
 function CmdPalette.show()
-    local names = {}
-    -- if CmdPalette.has_categories then print(categories)
-    -- else print(commands)
-    -- end
 end
 
 -- Execute a specific command from opts
