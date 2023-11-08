@@ -1,30 +1,32 @@
-CmdPalette = {}
-
-CmdPalette.has_categories = true
+---@class CmdPalette: CommandPalette
+local CmdPalette = {}
 
 -- default args
-CmdPalette.args = {
-    commands = {},
+---@type ConfigOpts
+CmdPalette.opts = {
+	commands = {},
+	mappings = {
+		["<leader>c1"] = "jhonny",
+		["<leader>c2"] = 2,
+	},
 }
 
--- get config opts
+---@param opts ConfigOpts
 function CmdPalette.setup(opts)
-    for k, v in pairs(opts) do
-        CmdPalette.args[k] = v
-    end
-    if #CmdPalette.args.commands <= 1 and CmdPalette.args.commands[1].name == nil then
-        CmdPalette.has_categories = false
-    end
+	for k, v in pairs(opts) do
+		CmdPalette.opts[k] = v
+	end
 end
 
--- Function 
-function CmdPalette.show()
-    
-end
+-- Function
+function CmdPalette.ui() end
 
--- Execute a specific command from opts
-function CmdPalette.cmd(index)
-    
-end
+---Execute a specific command from opts
+---@param idx integer
+function CmdPalette.run_cmd_by_idx(idx) end
+
+---Execute a specific command from opts
+---@param name string
+function CmdPalette.run_cmd_by_name(name) end
 
 return CmdPalette
