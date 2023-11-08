@@ -1,10 +1,9 @@
 CmdPalette = {}
 
-CmdPalette.commands = {}
+CmdPalette.has_categories = true
 
 -- default args
 CmdPalette.args = {
-
     commands = {},
 }
 
@@ -12,6 +11,10 @@ CmdPalette.args = {
 function CmdPalette.setup(opts)
     for k, v in pairs(opts) do
         CmdPalette.args[k] = v
+    end
+
+    if #CmdPalette.commands <= 1 and CmdPalette.args.commands[1].name == nil then
+        HasCategories = false
     end
 
     CmdPalette.commands = CmdPalette.args.commands
@@ -22,11 +25,9 @@ end
 -- Function 
 function CmdPalette.show()
     local names = {}
-    HasCategories = true
-    if #CmdPalette.commands <= 1 and CmdPalette.commands[1].name == nil then
-        HasCategories = false
-    end
-
+    -- if CmdPalette.has_categories then print(categories)
+    -- else print(commands)
+    -- end
 end
 
 -- Execute a specific command from opts
