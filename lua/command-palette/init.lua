@@ -14,7 +14,7 @@ function CmdPalette.setup(opts)
     end
 
     if #CmdPalette.commands <= 1 and CmdPalette.args.commands[1].name == nil then
-        HasCategories = false
+        CmdPalette.has_categories = false
     end
 
     CmdPalette.commands = CmdPalette.args.commands
