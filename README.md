@@ -2,7 +2,7 @@
 This is a a plugin for neovim inspired by VS code's command palette.
 
 ## WARNING!
-THis plugin is currently non-functional, and in early development!
+THis plugin is currently non-functional, but is in active development!
 
 ## Installation
 
