@@ -21,6 +21,6 @@ return {
 </details>
 
 # Todo
-- [] Run commands via ui
-- [] Run commands via name
-- [] Add more commands on the fly outside setup
+- [ ] Run commands via ui
+- [ ] Run commands via name
+- [ ] Add more commands on the fly outside setup
