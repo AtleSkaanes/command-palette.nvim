@@ -5,12 +5,14 @@ run_commands.__index = run_commands
 
 ---Turn a command type into a string
 ---@param command command # The input data from the user
----@return string? # The resulting command from the input data if nil then there is an error
-local function command_data_to_str(command)
+function run_commands.from_commmandData(command)
 	local command_type = type(command)
 
 	if command_type == "string" then
-		return command
+		-- turn string into cmd and arg set
+		-- local cmd
+		-- local args
+		-- run_commands.by_cmd_args(cmd, args)
 	end
 
 	if command_type == "table" then
@@ -59,7 +61,7 @@ function run_commands.by_cmd_args(cmd, args)
 		command = cmd,
 		args = args,
 		cwd = vim.loop.cwd(), -- current working dir
-		env = { ["VARIABLE"] = "VALUE" }, -- not sure what it is
+		env = { [""] = "" }, -- not sure what it is
 		on_stdout = function(error, data) -- could be used to make a custom terminal
 		end,
 		on_stderr = function(error, data) -- could be used to make a custom terminal

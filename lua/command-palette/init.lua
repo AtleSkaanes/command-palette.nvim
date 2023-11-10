@@ -1,32 +1,36 @@
+local run_cmd = require("command-palette.run_commands")
+
 ---@class CmdPalette: CommandPalette
 local CmdPalette = {}
 
--- default args
+---Currently no default options
 ---@type ConfigOpts
 CmdPalette.opts = {
-	commands = {},
-	mappings = {
-		["<leader>c1"] = "jhonny",
-		["<leader>c2"] = 2,
-	},
+	commands = nil,
+	mappings = nil,
 }
 
 ---@param opts ConfigOpts
 function CmdPalette.setup(opts)
-	for k, v in pairs(opts) do
-		CmdPalette.opts[k] = v
+	for key, value in pairs(opts) do
+		CmdPalette.opts[key] = value -- Override default opts
 	end
+
+	if CmdPalette.opts.commands == nil or #CmdPalette.opts.commands == 0 then
+		return vim.notify(
+			"No commands given, the plugin whon't load",
+			vim.log.levels.INFO,
+			{ title = "command-palette.nvim" }
+		)
+	end
+
+	CmdPalette.commands = CmdPalette.opts.commands
 end
 
--- Function
-function CmdPalette.ui() end
+---Open ui for all commands
+CmdPalette.ui = run_cmd.ui
 
 ---Execute a specific command from opts
----@param idx integer
-function CmdPalette.run_cmd_by_idx(idx) end
-
----Execute a specific command from opts
----@param name string
-function CmdPalette.run_cmd_by_name(name) end
+CmdPalette.run_cmd_by_name = run_cmd.by_name
 
 return CmdPalette
