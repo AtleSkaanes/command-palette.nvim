@@ -16,7 +16,7 @@ function CmdPalette.setup(opts)
 		CmdPalette.opts[key] = value -- Override default opts
 	end
 
-	if CmdPalette.opts.commands == nil or #CmdPalette.opts.commands == 0 then
+	if not CmdPalette.opts.commands or #CmdPalette.opts.commands == 0 then
 		return vim.notify(
 			"No commands given, the plugin whon't load",
 			vim.log.levels.INFO,
