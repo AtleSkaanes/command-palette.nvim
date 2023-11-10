@@ -12,14 +12,17 @@ THis plugin is currently non-functional, but is in active development!
 
 ### Packer
 ```lua
-use 'AtleSkaanes/command-palette.nvim'
+use { 'AtleSkaanes/command-palette.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+}
 ```
 
 ### Lazy
 ```lua
 return {
     'AtleSkaanes/command-palette.nvim',
-    opts = {}
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
 }
 ```
 
