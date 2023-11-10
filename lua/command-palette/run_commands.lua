@@ -100,4 +100,30 @@ function run_commands.by_name(name)
 	end
 end
 
+---@param category? string
+function run_commands.ui(category)
+	local layer = {}
+	if category == nil or category == "root" then
+		layer = require("command-palette.command_tree").get_commands("root")
+	else
+		layer = require("command-palette.command_tree").get_commands(category)
+	end
+	vim.ui.select(layer, {
+		prompt = "command palette",
+		format_item = function(item)
+			if type(item) == "string" then
+				return " " .. item
+			else
+				return " " .. item.name
+			end
+		end,
+	}, function(choice)
+		if type(choice) == "string" then
+			run_commands.ui(choice)
+		else
+			print(choice.name)
+		end
+	end)
+end
+
 return run_commands

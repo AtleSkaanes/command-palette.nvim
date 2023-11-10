@@ -22,7 +22,6 @@ return {
     opts = {}
 }
 ```
-</details>
 
 # Todo
 - [ ] Add support for commands that take async input
