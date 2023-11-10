@@ -5,7 +5,7 @@ local convert_to_tree = function(commands)
 	local tree = {}
 	for _, v in pairs(commands) do
 		if v.category ~= nil or v.category == "" or v.category == " " then
-			if tree[v.category] == nil then
+			if not tree[v.category] then
 				tree[v.category] = {}
 			end
 			table.insert(tree[v.category], 0, v)
@@ -42,7 +42,7 @@ end
 function M.get_commands(category)
 	local t = {}
 	local commands = require("command-palette").opts.commands
-	if commands == nil then
+	if not commands then
 		return t
 	end
 	local tree = convert_to_tree(commands)
