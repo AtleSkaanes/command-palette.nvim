@@ -1,7 +1,7 @@
 local M = {}
 
 ---@param commands CommandData[]
-local convert_to_tree = function(commands)
+local function convert_to_tree(commands)
 	local tree = {}
 	for _, v in pairs(commands) do
 		if v.category ~= nil or v.category == "" or v.category == " " then
@@ -17,7 +17,7 @@ local convert_to_tree = function(commands)
 end
 
 ---@param branch table
-local get_commands_from_branch = function(branch)
+local function get_commands_from_branch(branch)
 	local categories = {}
 	local cmds = {}
 	for k, v in pairs(branch) do
