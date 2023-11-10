@@ -25,6 +25,10 @@ return {
 </details>
 
 # Todo
+- [ ] Add support for commands that take async input
+- [ ] Add support for string based commands
+- [ ] Add support for table of string based commands
+- [ ] Add support for commands that output their command via a function (Must be synchronous)
 - [ ] Run commands via ui
 - [ ] Run commands via name
 - [ ] Add more commands on the fly outside setup
