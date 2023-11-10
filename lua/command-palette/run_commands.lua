@@ -103,7 +103,7 @@ end
 ---@param category? string
 function run_commands.ui(category)
 	local layer = {}
-	if category == nil or category == "root" then
+	if not category or category == "root" then
 		layer = require("command-palette.command_tree").get_commands("root")
 	else
 		layer = require("command-palette.command_tree").get_commands(category)
