@@ -112,13 +112,17 @@ function run_commands.ui(category)
 		prompt = "command palette",
 		format_item = function(item)
 			if type(item) == "string" then
-				return " " .. item
+				local icon = require("command-palette").opts.icons.category or "F"
+				return icon .. " " .. item
 			else
-				return " " .. item.name
+				local icon = require("command-palette").opts.icons.cmd or "C"
+				return icon .. " " .. item.name
 			end
 		end,
 	}, function(choice)
-		if type(choice) == "string" then
+		if choice == "..." then
+			run_commands.ui()
+		elseif type(choice) == "string" then
 			run_commands.ui(choice)
 		else
 			print(choice.name)

@@ -50,6 +50,7 @@ function M.get_commands(category)
 		t = get_commands_from_branch(tree)
 	elseif tree[category] ~= nil then
 		t = get_commands_from_branch(tree[category])
+		table.insert(t, 1, "...")
 	end
 	return t
 end
