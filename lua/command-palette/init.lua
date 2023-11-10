@@ -1,7 +1,7 @@
-local run_cmd = require("command-palette.run_commands")
-
 ---@class CmdPalette: CommandPalette
 local CmdPalette = {}
+
+CmdPalette.run_cmd = nil
 
 ---Currently no default options
 ---@type ConfigOpts
@@ -24,13 +24,9 @@ function CmdPalette.setup(opts)
 		)
 	end
 
-	CmdPalette.commands = CmdPalette.opts.commands
+	CmdPalette.run_cmd = require("command-palette.run_commands")
+	CmdPalette.run_cmd.is_setup = true
+	CmdPalette.run_cmd.commands = CmdPalette.opts.commands
 end
-
----Open ui for all commands
-CmdPalette.ui = run_cmd.ui
-
----Execute a specific command from opts
-CmdPalette.run_cmd_by_name = run_cmd.by_name
 
 return CmdPalette

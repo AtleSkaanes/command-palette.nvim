@@ -1,30 +1,40 @@
 local job = require("plenary.job")
+local utils = require("command-palette.utils")
 
 local run_commands = {}
-run_commands.__index = run_commands
+
+---@type boolean
+run_commands.is_setup = false
+---@type CommandData[]
+run_commands.commands = nil
 
 ---Turn a command type into a string
 ---@param command command # The input data from the user
 function run_commands.from_commmandData(command)
+	if not run_commands.is_setup then
+		return vim.notify(
+			"You need to setup command-palette before running commands",
+			vim.log.levels.ERROR,
+			{ title = "command-palette" }
+		)
+	end
+
 	local command_type = type(command)
 
 	if command_type == "string" then
-		-- turn string into cmd and arg set
-		-- local cmd
-		-- local args
-		-- run_commands.by_cmd_args(cmd, args)
+		local args = utils.split_str(command, " ")
+		local cmd = table.remove(args, 1)
+
+		run_commands.by_cmd_args(cmd, args)
+		return
 	end
 
 	if command_type == "table" then
-		local out = command[1]
-		for i = 2, #command do
-			if type(command[i]) ~= "string" then
-				return nil
-			end
+		local args = utils.deepcopy(command)
+		local cmd = table.remove(args, 1)
 
-			out = out .. " " .. command[i]
-		end
-		return out
+		run_commands.by_cmd_args(cmd, args)
+		return
 	end
 
 	if command_type == "function" then
@@ -32,24 +42,21 @@ function run_commands.from_commmandData(command)
 		local return_type = type(return_value)
 
 		if return_type == "string" then
-			return return_value
+			local args = utils.split_str(return_value, " ")
+			local cmd = table.remove(args, 1)
+
+			run_commands.by_cmd_args(cmd, args)
+			return
 		end
 
 		if return_type == "table" then
-			local out = return_value[1]
-			for i = 2, #return_value do
-				if type(return_value[i]) ~= "string" then
-					return nil
-				end
+			local args = utils.deepcopy(return_value)
+			local cmd = table.remove(args, 1)
 
-				out = out .. " " .. return_value[i]
-			end
-			return out
+			run_commands.by_cmd_args(cmd, args)
+			return
 		end
 	end
-
-	-- Incorrect input
-	return nil
 end
 
 ---Run a command with the given args
@@ -60,31 +67,35 @@ function run_commands.by_cmd_args(cmd, args)
 	job:new({
 		command = cmd,
 		args = args,
-		cwd = vim.loop.cwd(), -- current working dir
-		env = { [""] = "" }, -- not sure what it is
 		on_stdout = function(error, data) -- could be used to make a custom terminal
+			error = error or ""
+			print(error .. " " .. data)
 		end,
 		on_stderr = function(error, data) -- could be used to make a custom terminal
+			error = error or ""
+			print(error .. " " .. data)
 		end,
 		on_exit = function(job, code) -- custom terminal use mayhaps
+			print(job:result())
+			print("exit code: " .. code)
 		end,
-	})
+	}):start()
 end
 
 ---Run a command via it's name
----@param cmdPalette CmdPalette
 ---@param name string
-function run_commands.by_name(cmdPalette, name)
-	for _, commandData in ipairs(cmdPalette.commands) do
-		if commandData.name == name then
-			---@type string?
-			local commandStr = command_data_to_str(commandData.cmd)
-			if commandStr == nil then -- Something is wrong with the command input
-				local error_msg = string.format("Invalid command given, command name: %s", commandData.name)
-				return vim.notify(error_msg, vim.log.levels.ERROR, { title = "command-palette.nvim" })
-			end
+function run_commands.by_name(name)
+	if not run_commands.is_setup then
+		return vim.notify(
+			"You need to setup command-palette before running commands",
+			vim.log.levels.ERROR,
+			{ title = "command-palette" }
+		)
+	end
 
-			print(commandStr)
+	for _, commandData in ipairs(run_commands.commands) do
+		if commandData.name == name then
+			run_commands.from_commmandData(commandData.cmd)
 		end
 	end
 end
