@@ -70,16 +70,15 @@ cmd_palette.setup({
         }
     }
         
-    -- Example keymappings
-
-        -- Run a specific command, currently can't specify category (fix comming)
-    vim.keymap.set('n', '<leader>c1', function() cmd_palette.run_cmd.by_name('compile main') end)
-        -- Open the ui in a specific category
-    vim.keymap.set('n', '<leader>cR', function() cmd_palette.run_cmd.ui('Rust') end)
-        -- Open the ui at the root category (same as cmd_palette.run_cmd.ui('root'))
-    vim.keymap.set('n', '<leader>C', cmd_palette.run_cmd.ui)
 })
+-- Example keymappings
 
+    -- Run a specific command, currently can't specify category (fix comming)
+vim.keymap.set('n', '<leader>c1', function() cmd_palette.run_cmd.by_name('compile main') end)
+    -- Open the ui in a specific category
+vim.keymap.set('n', '<leader>cR', function() cmd_palette.run_cmd.ui('Rust') end)
+    -- Open the ui at the root category (same as cmd_palette.run_cmd.ui('root'))
+vim.keymap.set('n', '<leader>C', cmd_palette.run_cmd.ui)
 ```
 
 # Todo
