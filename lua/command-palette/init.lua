@@ -8,6 +8,7 @@ CmdPalette.run_cmd = nil
 CmdPalette.opts = {
 	commands = nil,
 	mappings = nil,
+	icons = { category = nil, cmd = nil, back = nil },
 }
 
 ---@param opts ConfigOpts

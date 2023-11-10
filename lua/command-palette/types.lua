@@ -10,9 +10,15 @@
 ---@field category? string
 ---@field cmd command
 
+---@class IconOpts
+---@field cmd? string
+---@field category? string
+---@field back? string
+
 ---@class ConfigOpts
 ---@field commands? CommandData[]
 ---@field mappings? { [string]: string|integer }
+---@field icons? IconOpts }
 
 ---@class CommandPalette
 ---@field opts ConfigOpts
