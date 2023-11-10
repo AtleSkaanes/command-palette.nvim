@@ -26,11 +26,17 @@ return {
 }
 ```
 
+
 # Todo
-- [ ] Add support for commands that take async input
-- [ ] Add support for string based commands
-- [ ] Add support for table of string based commands
-- [ ] Add support for commands that output their command via a function (Must be synchronous)
+- [ ] String based commands
+- [ ] Table of strings based commands
+- [ ] Async functions to be passed as parameters (for example use of vim.ui functions in input)
 - [ ] Run commands via ui
 - [ ] Run commands via name
 - [ ] Add more commands on the fly outside setup
+- [ ] Custom CWD for commands
+- [ ] Custom ENV for commands
+- [ ] Run commands with output shown in a seperate buffer
+- [ ] Change output buffer position
+- [ ] Run commands in a terminal
+- [ ] Change terminal position
