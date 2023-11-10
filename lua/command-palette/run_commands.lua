@@ -111,16 +111,21 @@ function run_commands.ui(category)
 	vim.ui.select(layer, {
 		prompt = "command palette",
 		format_item = function(item)
-			if type(item) == "string" then
-				local icon = require("command-palette").opts.icons.category or "F"
+			local icons = require("command-palette").opts.icons or { nil, nil, nil }
+			if item == ".." then
+				return icons.back or ".."
+			elseif type(item) == "string" then
+				local icon = icons.category or "F"
 				return icon .. " " .. item
 			else
-				local icon = require("command-palette").opts.icons.cmd or "C"
+				local icon = icons.cmd or "C"
 				return icon .. " " .. item.name
 			end
 		end,
 	}, function(choice)
-		if choice == "..." then
+		if choice == nil then
+			return
+		elseif choice == ".." then
 			run_commands.ui()
 		elseif type(choice) == "string" then
 			run_commands.ui(choice)

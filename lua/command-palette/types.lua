@@ -11,8 +11,9 @@
 ---@field cmd command
 
 ---@class IconOpts
----@field cmd? string|integer
----@field category? string|integer
+---@field cmd? string
+---@field category? string
+---@field back? string
 
 ---@class ConfigOpts
 ---@field commands? CommandData[]
