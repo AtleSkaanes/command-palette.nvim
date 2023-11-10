@@ -1,4 +1,7 @@
+local job = require("plenary.job")
+
 local run_commands = {}
+run_commands.__index = run_commands
 
 ---Turn a command type into a string
 ---@param command command # The input data from the user
@@ -12,7 +15,7 @@ local function command_data_to_str(command)
 
 	if command_type == "table" then
 		local out = command[1]
-		for i = 2, #command, 1 do
+		for i = 2, #command do
 			if type(command[i]) ~= "string" then
 				return nil
 			end
@@ -32,7 +35,7 @@ local function command_data_to_str(command)
 
 		if return_type == "table" then
 			local out = return_value[1]
-			for i = 2, #return_value, 1 do
+			for i = 2, #return_value do
 				if type(return_value[i]) ~= "string" then
 					return nil
 				end
@@ -42,7 +45,28 @@ local function command_data_to_str(command)
 			return out
 		end
 	end
+
+	-- Incorrect input
 	return nil
+end
+
+---Run a command with the given args
+---@param cmd string
+---@param args? string[]
+function run_commands.by_cmd_args(cmd, args)
+	args = args or {}
+	job:new({
+		command = cmd,
+		args = args,
+		cwd = vim.loop.cwd(), -- current working dir
+		env = { ["VARIABLE"] = "VALUE" }, -- not sure what it is
+		on_stdout = function(error, data) -- could be used to make a custom terminal
+		end,
+		on_stderr = function(error, data) -- could be used to make a custom terminal
+		end,
+		on_exit = function(job, code) -- custom terminal use mayhaps
+		end,
+	})
 end
 
 ---Run a command via it's name
