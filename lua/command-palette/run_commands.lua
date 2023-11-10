@@ -10,7 +10,7 @@ run_commands.commands = nil
 
 ---Turn a command type into a string
 ---@param command command # The input data from the user
-function run_commands.from_commmandData(command)
+function run_commands.by_commmandData(command)
 	if not run_commands.is_setup then
 		return vim.notify(
 			"You need to setup command-palette before running commands",
@@ -95,20 +95,17 @@ function run_commands.by_name(name)
 
 	for _, commandData in ipairs(run_commands.commands) do
 		if commandData.name == name then
-			run_commands.from_commmandData(commandData.cmd)
+			run_commands.by_commmandData(commandData.cmd)
 		end
 	end
 end
 
 ---@param category? string
 function run_commands.ui(category)
-	local layer = {}
-	if not category or category == "root" then
-		layer = require("command-palette.command_tree").get_commands("root")
-	else
-		layer = require("command-palette.command_tree").get_commands(category)
-	end
-	vim.ui.select(layer, {
+	category = category or "root"
+	local branch = require("command-palette.command_tree").get_commands(category)
+
+	vim.ui.select(branch, {
 		prompt = "command palette",
 		format_item = function(item)
 			local icons = require("command-palette").opts.icons or { nil, nil, nil }
@@ -123,14 +120,14 @@ function run_commands.ui(category)
 			end
 		end,
 	}, function(choice)
-		if choice == nil then
+		if not choice then
 			return
 		elseif choice == ".." then
 			run_commands.ui()
 		elseif type(choice) == "string" then
 			run_commands.ui(choice)
 		else
-			print(choice.name)
+			run_commands.by_commmandData(choice.cmd)
 		end
 	end)
 end
