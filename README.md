@@ -12,14 +12,15 @@ along with either [dressing](https://github.com/stevearc/dressing.nvim) or [tele
 ```lua
 use { 'AtleSkaanes/command-palette.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
+    tag = "*",
     config = function()
         local cmd_palette = require('command-palette')
         cmd_palette.setup({
             commands = {
                 -- commands here
-            }
+            },
         })
-    end
+    end,
 }
 ```
 
@@ -28,10 +29,11 @@ use { 'AtleSkaanes/command-palette.nvim',
 return {
     'AtleSkaanes/command-palette.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    version = "*",
     opts = { -- theese opts go into command-palette.setup()
         commands = {
             -- commands here
-        }
+        },
     },
 }
 ```
