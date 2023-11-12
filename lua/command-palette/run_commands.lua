@@ -1,6 +1,7 @@
 local job = require("plenary.job")
 local utils = require("command-palette.utils")
 
+---@class run_commands: CommandAPI
 local run_commands = {}
 
 ---@type boolean
@@ -100,6 +101,7 @@ function run_commands.by_name(name)
 	end
 end
 
+---Opens the command ui in with the category selected (defaults to 'root')
 ---@param category? string
 function run_commands.ui(category)
 	category = category or "root"

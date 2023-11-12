@@ -1,3 +1,5 @@
+local utils = require("command-palette.utils")
+
 ---@class CmdPalette: CommandPalette
 local CmdPalette = {}
 
@@ -5,7 +7,7 @@ CmdPalette.run_cmd = nil
 
 ---Currently no default options
 ---@type ConfigOpts
-CmdPalette.opts = {
+CmdPalette.defaults = {
 	commands = nil,
 	mappings = nil,
 	icons = { category = nil, cmd = nil, back = nil },
@@ -13,9 +15,7 @@ CmdPalette.opts = {
 
 ---@param opts ConfigOpts
 function CmdPalette.setup(opts)
-	for key, value in pairs(opts) do
-		CmdPalette.opts[key] = value -- Override default opts
-	end
+	CmdPalette.opts = utils.deep_override(CmdPalette.defaults, opts)
 
 	if not CmdPalette.opts.commands or #CmdPalette.opts.commands == 0 then
 		return vim.notify(

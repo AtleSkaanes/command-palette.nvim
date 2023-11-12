@@ -21,9 +21,8 @@
 ---@field icons? IconOpts }
 
 ---@class CommandPalette
----@field opts ConfigOpts
----@field commands CommandData[]
----@field setup fun(opts: ConfigOpts)
----@field run_cmd_by_name fun(name: string)
----@field run_cmd_by_idx fun(idx: integer)
----@field ui fun()
+---@field opts ConfigOpts the configs set in setup
+---@field defaults ConfigOpts the default configs
+---@field commands CommandData[] all of the commands set by the user
+---@field setup fun(opts: ConfigOpts) The setup function called by the user
+---@field run_cmd CommandAPI The class responsible for calling commands
