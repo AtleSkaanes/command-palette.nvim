@@ -3,7 +3,7 @@ This is a a plugin for neovim inspired by VS code's command palette, but made in
 This plugin will enable you to create commands, and save them to the command palette for easy use.
 This will not show all available nvim commands, only custom ones you have created and saved to the command palette!
 
-This plugin uses nvim's builtin select function, so it is recommended to use [telescope](https://github.com/nvim-telescope/telescope.nvim
+This plugin uses nvim's builtin select function, so it is recommended to use [telescope](https://github.com/nvim-telescope/telescope.nvim)
 along with either [dressing](https://github.com/stevearc/dressing.nvim) or [telescope-ui-select](https://github.com/nvim-telescope/telescope-ui-select.nvim), to get a GUI.
 
 ## Installation
@@ -48,7 +48,7 @@ cmd_palette.setup({
         {                       -- each command is it's own table
             name = 'compile main', -- descriptive name
             category = 'cpp',   -- a category to organise your commands (not necesarry)
-            cmd = 'clang main.cpp -o main.exe' -- the command to run
+            cmd = 'clang main.cpp -o main.exe', -- the command to run
         },
         {
             name = 'Run',
@@ -56,7 +56,7 @@ cmd_palette.setup({
             cmd = {
                 'cargo',        -- cmd can be of type table as well.
                 'run',          -- All strings will be sepereated by spaces
-            }
+            },
         },
         {
             name = 'run python script',
@@ -65,11 +65,17 @@ cmd_palette.setup({
                 local script = vim.fn.input('Python Script name: ') -- vim.ui.input is async so it doesn't work
 
                 return { command, script } -- output can be a string or table of strings
-            end
+            end,
             
-        }
-    }
-        
+        },
+    },
+
+    -- default config
+    icons = {
+        category = 'F',
+        cmd = 'C',
+        back = '..'
+    },  
 })
 -- Example keymappings
 
